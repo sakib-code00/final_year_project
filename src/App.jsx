@@ -11,6 +11,7 @@ import ContactUs from "./Pages/ContactUs"
 import PricingPlans from "./Pages/PricingPlans"
 import About from "./Pages/About"
 import SearchResult from "./Pages/SearchResult"
+import User from "./Components/Users/User/User"
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
       <PricingPlans></PricingPlans>
       <About></About>
       <SearchResult></SearchResult>
+      <User></User>
       <Footer></Footer>
 
     </div>
