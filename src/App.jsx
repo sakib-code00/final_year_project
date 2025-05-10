@@ -12,27 +12,17 @@ import PricingPlans from "./Pages/PricingPlans"
 import About from "./Pages/About"
 import SearchResult from "./Pages/SearchResult"
 import User from "./Components/Users/User/User"
+import Home from "./Pages/Home"
+import { Outlet } from "react-router-dom"
 
 
 function App() {
 
   return (
-    <div className="flex flex-col items-center">
-      <NavBar></NavBar> 
-      <Hero></Hero>
-      <Gallery></Gallery>
-      <Welcome></Welcome>
-      <Login></Login>
-      <SignUp></SignUp>
-      <BecomeContributor></BecomeContributor>
-      <Overlay></Overlay>
-      <ContactUs></ContactUs>
-      <PricingPlans></PricingPlans>
-      <About></About>
-      <SearchResult></SearchResult>
-      <User></User>
+    <div className="flex flex-col items-center bg-gray-50">
+      <NavBar></NavBar>
+      <Outlet></Outlet> 
       <Footer></Footer>
-
     </div>
   )
 }
