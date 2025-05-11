@@ -3,7 +3,7 @@ import { GoCheckbox } from "react-icons/go";
 
 const PricingPlans = () => {
   return (
-    <div className='w-10/12'>
+    <div className='w-10/12 my-20'>
         <div>
 
            {/*------- Pricing Head text section----------*/}

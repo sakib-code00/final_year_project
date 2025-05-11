@@ -1,13 +1,8 @@
 import React from 'react'
 import Titlebar from './Titlebar'
 import SideNav from './SideNav'
-import Profilesetting from '../MainContent/Profilesetting'
-import DownloadEmpty from '../MainContent/Download/DownloadEmpty'
-import EmptyWishlist from '../MainContent/Wishlist/EmptyWishlist'
-import Wishlist from '../MainContent/Wishlist/Wishlist'
-import DownloadHistory from '../MainContent/Download/DownloadHistory'
-import Billing from '../MainContent/Billing'
-import Profile from '../MainContent/Profile'
+import Footer from '../../Footer'
+import { Outlet } from 'react-router-dom'
 
 
 const User = () => {
@@ -17,15 +12,10 @@ const User = () => {
         <div className=' flex items-start justify-center gap-6'>
           <SideNav></SideNav>
           <div>
-            <Profilesetting></Profilesetting>
-            <DownloadEmpty></DownloadEmpty>
-            <EmptyWishlist></EmptyWishlist>
-            <Wishlist></Wishlist>
-            <DownloadHistory></DownloadHistory>
-            <Billing></Billing>
-            <Profile></Profile>
+            <Outlet></Outlet>
           </div>
         </div>
+        <Footer></Footer>
     </div>
   )
 }
