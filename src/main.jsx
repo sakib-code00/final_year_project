@@ -16,6 +16,8 @@ import Wishlist from './Components/Users/MainContent/Wishlist/Wishlist.jsx';
 import Billing from './Components/Users/MainContent/Billing.jsx';
 import Profilesetting from './Components/Users/MainContent/Profilesetting.jsx';
 import DownloadHistory from './Components/Users/MainContent/Download/DownloadHistory.jsx';
+import Login from './Pages/Login.jsx';
+import SignUp from './Pages/SignUp.jsx';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,14 @@ const router = createBrowserRouter([
         path: "/pricingplans",
         element: <PricingPlans></PricingPlans>
       },
+      {
+        path: "/login",
+        element: <Login></Login>
+      },
+      {
+        path: "/signin",
+        element: <SignUp></SignUp>
+      }
     ],
 
   },

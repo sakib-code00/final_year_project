@@ -19,7 +19,7 @@ import { Outlet } from "react-router-dom"
 function App() {
 
   return (
-    <div className="flex flex-col items-center bg-gray-50">
+    <div style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', overflow: 'scroll' }} className="flex flex-col items-center bg-gray-50 w-full h-screen overflow-scroll">
       <NavBar></NavBar>
       <Outlet></Outlet> 
       <Footer></Footer>

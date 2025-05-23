@@ -4,12 +4,15 @@ import { FcGoogle } from "react-icons/fc";
 
 const SignUp = () => {
   return (
-    <div className='w-11/12'>
-        <div className='flex items-center'>
+    <div className='w-7/12 flex flex-col gap-3 bg-white items-center justify-center rounded-xl mx-auto p-4'>
+        <div className='flex items-center relative'>
                     <div className='w-6/12'>
                         <img className='w-full h-full' src={Frame1} alt="" />
                     </div>
-                    <div className='pl-16 flex flex-col items-start gap-5 w-6/12'>
+                    <div className='pl-8 flex flex-col items-start gap-5 w-6/12'>
+                    <button
+                    className="text-xl font-bold text-gray-600 hover:text-black absolute top-2 right-2"
+                    onClick={() => setShowSignup(false)}>✖</button>
                         <div>
                             <h1 className='text-3xl font-bold'>Create an account</h1>
                             <p className='text-bse font-normal text-gray-500 mt-2'>Please enter your details now</p>
