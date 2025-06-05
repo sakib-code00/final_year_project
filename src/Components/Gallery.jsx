@@ -20,20 +20,9 @@ import Img_9 from "../assets/Images/image (8).png"
 
 const Gallery = () => {
   return (
-    <div className='w-11/12 flex flex-col justify-start items-center'>
-        <div className='flex items-center justify-center mt-10 mb-8'>
-            <ul className='flex items-center text-gray-500 gap-4'>
-                <li><a href="" className='bg-black text-white rounded-3xl px-3 py-2' >For You</a></li>
-                <li><a href="">Popular</a></li>
-                <li><a href="">Region Based</a></li>
-            </ul>
-        </div>
+    <div className='w-11/12 flex flex-col justify-start items-center mt-4'>
         <div className='flex items-center justify-between w-full'>
             <h1 className='text-2xl text-black font-medium'>Images You’ll Love</h1>
-            <button className='flex items-center justify-center border border-gray-500 px-3 py-1 rounded-full'>
-                <p className="text-base text-gray-500">Tranding</p>
-                <RiArrowDownSLine className='text-xl font-medium ml-1 text-gray-500'></RiArrowDownSLine>
-            </button>
         </div>
         <Image></Image>
         {/* Search Section Start Here */}

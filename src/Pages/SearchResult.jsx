@@ -22,7 +22,7 @@ import Img_9 from "../assets/Images/image (8).png"
 
 const SearchResult = () => {
   return (
-    <div className='w-11/12'>
+    <div className='w-11/12 mt-20'>
         <div>
             {/*----------- Header Text Start Here----------*/}
             <div className='mb-6'>

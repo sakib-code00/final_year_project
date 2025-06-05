@@ -1,8 +1,16 @@
 import React from 'react'
 import { GoDownload } from "react-icons/go";
 import { RiArrowRightSLine } from "react-icons/ri";
+import { useNavigate } from 'react-router-dom';
 
 const Welcome = () => {
+
+    const navigate = useNavigate();
+    const gotoSearchresult = () => {
+        navigate("/searchresult");
+    }
+
+
   return (
     <div className='w-11/12 mb-20 mt-20'>
         <div className='mb-8'>
@@ -18,7 +26,7 @@ const Welcome = () => {
                     <h1 className='text-xl font-bold mb-2'>Explore Image & Videos</h1>
                     <p className='text-sm text-gray-400 w-4/6'>Discover stunning images and videos to inspire your next project. Start exploring now!</p>
                 </div>
-                <button className='flex items-center justify-center bg-gray-100 w-2/4 p-2 rounded-3xl  font-medium'>
+                <button onClick={gotoSearchresult} className='flex items-center justify-center bg-gray-100 w-2/4 p-2 rounded-3xl  font-medium'>
                     <p className="text-base text-gray-600">Explore More</p>
                     <RiArrowRightSLine className='text-xl font-medium ml-1 text-gray-500'></RiArrowRightSLine>
                 </button>

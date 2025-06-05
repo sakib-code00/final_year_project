@@ -1,6 +1,17 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Footer = () => {
+    
+    const navigate = useNavigate();
+
+    const gotoAbout = () => {
+        navigate("/about");
+    }
+    const gotoContact = () => {
+        navigate("/contactus");
+    }
+
   return (
     <div className='w-full mt-5'>
         <footer className="footer bg-base-200 text-base-content p-10">
@@ -31,8 +42,8 @@ const Footer = () => {
             </nav>
             <nav>
                 <h6 className="footer-title">Company</h6>
-                <a className="link link-hover">About us</a>
-                <a className="link link-hover">Contact</a>
+                <button onClick={gotoAbout} className='hover:underline'>About Us</button>
+                <button onClick={gotoContact} className='hover:underline'>Contact Us</button>
                 <a className="link link-hover">Jobs</a>
                 <a className="link link-hover">Press kit</a>
             </nav>

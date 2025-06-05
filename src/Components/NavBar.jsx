@@ -6,8 +6,14 @@ import Login from '../Pages/Login'
 import SignUp from '../Pages/SignUp'
 import Frame1 from '../assets/Images/Frame 232 (1).png'
 import { FcGoogle } from "react-icons/fc";
+import { useNavigate } from 'react-router-dom'
 
 const NavBar = () => {
+
+  const navigate = useNavigate();
+  const gotoHome = () => {
+    navigate("/home");
+  }
 
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
@@ -17,7 +23,7 @@ const NavBar = () => {
     <div className='w-full'>
         <div className="navbar fixed top-0 w-full z-50 bg-black/60 backdrop-blur-md text-white shadow-md">
           <div className="flex-1">
-            <a className="btn btn-ghost text-xl">
+            <a onClick={gotoHome} className="btn btn-ghost text-xl">
               <div className='flex items-center justify-center'>
                 <img src={logo} alt="" />
                 <img src={bpic} alt="" />
@@ -26,17 +32,6 @@ const NavBar = () => {
           </div>
           <div className="flex-none">
             <ul className="menu menu-horizontal px-1">
-              <li>
-                <details>
-                  <summary>Explore</summary>
-                  <ul className=" p-2">
-                    <li><a>Link 1</a></li>
-                    <li><a>Link 2</a></li>
-                  </ul>
-                </details>
-              </li>
-              <li><a className=''>Our Pricing</a></li>
-              <li><a>Become Contributo</a></li>
               <li><a className='cursor-pointer' onClick={() => setShowLogin(true)}>Join Now</a></li>
             </ul>
           </div>

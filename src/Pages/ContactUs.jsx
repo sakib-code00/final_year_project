@@ -7,7 +7,7 @@ import { PiPaperPlaneTiltLight } from "react-icons/pi";
 
 const ContactUs = () => {
   return (
-    <div className='w-10/12 bg-white rounded-2xl my-16 p-5'>
+    <div className='w-10/12 bg-white rounded-2xl my-20 p-5'>
         <div className='p-3 flex items-center justify-center gap-10'>
 
 

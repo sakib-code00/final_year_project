@@ -9,8 +9,28 @@ import { CiMoneyBill } from "react-icons/ci";
 import { HiOutlineUser } from "react-icons/hi";
 import { LuSettings } from "react-icons/lu";
 import { RiDownloadCloudLine } from "react-icons/ri";
+import { useNavigate } from 'react-router-dom';
 
 const SideNav = () => {
+
+    const navigate = useNavigate();
+    const gotoProfile = () => {
+        navigate("profile");
+    }
+    const gotoSettings = () => {
+        navigate("settings");
+    }
+    const gotoWishlist = () => {
+        navigate("wishlist");
+    }
+    const gotoDownloads = () => {
+        navigate("downloads");
+    }
+    const gotoBilling = () => {
+        navigate("billing");
+    }
+
+
   return (
     <div>
         <div className=' bg-white p-4 rounded-xl'>
@@ -28,32 +48,32 @@ const SideNav = () => {
                 {/*------Features div 1-------*/}
                 <div className='flex flex-col gap-4 items-start'>
                     <h1 className='text-small text-gray-400 font-bold'>Overview</h1>
-                    <button className='flex items-center justify-center font-medium gap-1'>
+                    <div onClick={gotoWishlist} className='flex font-medium gap-1 p-2 w-full cursor-pointer hover:bg-black hover:text-white'>
                         <GoHeart className='text-2xl font-medium ml-1 text-gray-400'></GoHeart>
                         <p className="text-base text-gray-400">Wishlist</p>
-                    </button>
-                    <button className='flex items-center justify-center font-medium gap-1'>
+                    </div>
+                    <div onClick={gotoDownloads} className='flex items-center justify-center font-medium gap-1 cursor-pointer hover:bg-black hover:text-white'>
                         <RiDownloadCloudLine className='text-2xl font-medium ml-1 text-gray-400'></RiDownloadCloudLine>
                         <p className="text-base text-gray-400">Download History</p>
-                    </button>
+                    </div>
                 </div>
                 {/*------Features div 1-------*/}
 
                 {/*------Features div 2-------*/}
-                <div className='flex flex-col gap-3 items-start'>
+                <div onClick={gotoBilling} className='flex flex-col gap-3 items-start'>
                     <h1 className='text-small text-gray-400 font-bold'>Payment & Billing</h1>
-                    <button className='flex items-center justify-center font-medium gap-1'>
+                    <div className='flex p-2 w-full font-medium gap-1 cursor-pointer hover:bg-black hover:text-white'>
                         <MdOutlineSubscriptions className='text-2xl font-medium ml-1 text-gray-400'></MdOutlineSubscriptions>
                         <p className="text-base text-gray-400">Subscription Plans</p>
-                    </button>
-                    <button className='flex items-center justify-center font-medium gap-1'>
+                    </div>
+                    <div className='flex p-2 w-full font-medium gap-1 cursor-pointer hover:bg-black hover:text-white'>
                         <MdOutlinePayment className='text-2xl font-medium ml-1 text-gray-400'></MdOutlinePayment>
                         <p className="text-base text-gray-400">Payment Mathods</p>
-                    </button>
-                    <button className='flex items-center justify-center font-medium gap-1'>
+                    </div>
+                    <div className='flex p-2 w-full font-medium gap-1 cursor-pointer hover:bg-black hover:text-white'>
                         <CiMoneyBill className='text-2xl font-medium ml-1 text-gray-400'></CiMoneyBill>
                         <p className="text-base text-gray-400">Billing History</p>
-                    </button>
+                    </div>
                 </div>
                 {/*------Features div 2-------*/}
 
@@ -61,14 +81,14 @@ const SideNav = () => {
                 {/*------Features div 3-------*/}
                 <div className='flex flex-col gap-3 items-start'>
 
-                    <button className='flex items-center justify-center font-medium gap-1'>
+                    <div onClick={gotoProfile} className='flex p-2 w-full font-medium gap-1 cursor-pointer hover:bg-black hover:text-white'>
                         <HiOutlineUser className='text-2xl font-medium ml-1 text-gray-400'></HiOutlineUser>
                         <p className="text-base text-gray-400">Profile</p>
-                    </button>
-                    <button className='flex items-center justify-center font-medium gap-1'>
+                    </div>
+                    <div onClick={gotoSettings} className='flex p-2 w-full font-medium gap-1 cursor-pointer hover:bg-black hover:text-white'>
                         <LuSettings className='text-2xl font-medium ml-1 text-gray-400'></LuSettings>
                         <p className="text-base text-gray-400">Settings</p>
-                    </button>
+                    </div>
                 </div>
                 {/*------Features div-------*/}
 
