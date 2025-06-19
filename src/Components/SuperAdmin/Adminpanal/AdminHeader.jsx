@@ -35,12 +35,6 @@ const AdminHeader = () => {
 
             {/*----------Right side -----------*/}
             <div className='flex items-center gap-5 justify-center'>
-                <button className='flex items-center justify-center bg-gray-100 p-2 rounded-full font-medium'>
-                    <IoMdNotificationsOutline className='text-2xl font-medium text-gray-500'></IoMdNotificationsOutline>
-                </button>
-                <button className='flex items-center justify-center bg-gray-100 p-2 rounded-full font-medium'>
-                    <AiOutlineSun className='text-2xl font-medium text-gray-500'></AiOutlineSun>
-                </button>
                 <img className='w-16 h-16 bg-gray-400 p-1 rounded-xl' src={profilepic} alt="" />
             </div>
             {/*----------Right side end -----------*/}
