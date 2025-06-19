@@ -58,6 +58,14 @@ const router = createBrowserRouter([
         path: "/searchresult",
         element: <SearchResult></SearchResult>,
       },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/signup",
+        element: <SignUp></SignUp>,
+      }
     ],
 
   },
