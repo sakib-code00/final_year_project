@@ -9,8 +9,16 @@ import GeneralUsers from '../GeneralUsers'
 import Contents from '../Contents'
 import GeneralSettings from '../GeneralSettings'
 import { Outlet } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useSettings } from '../../../contexts/SettingsContext'
 
 const Dashboard = () => {
+  const { siteTitle } = useSettings();
+    useEffect(() => {
+      if (siteTitle) {
+        document.title = siteTitle;
+      }
+    }, [siteTitle]);
   return (
     <div>
         <AdminHeader></AdminHeader>

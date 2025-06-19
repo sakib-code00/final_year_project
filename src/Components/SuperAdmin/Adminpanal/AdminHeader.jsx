@@ -1,24 +1,33 @@
 import React from 'react'
+import { useSettings } from '../../../contexts/SettingsContext';
+import logoFallback from '../../../assets/Images/logo1.png'
+import bpicblack from '../../../assets/Images/Bpicsblack.png'
+import profilepic from '../../../assets/Images/profilepic.png'
 import { RiSearch2Line } from "react-icons/ri";
 import { RiGalleryLine } from "react-icons/ri";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { AiOutlineSun } from "react-icons/ai";
-import logo from "../../../assets/Images/logo1.png"
-import bpicblack from '../../../assets/Images/Bpicsblack.png'
-import profilepic from '../../../assets/Images/profilepic.png'
 
+
+const BACKEND_URL = 'http://localhost:5000';
 
 const AdminHeader = () => {
+  const { logo, siteTitle } = useSettings();
+  const getLogoUrl = () => {
+    if (logo && logo.startsWith('/uploads/')) return BACKEND_URL + logo;
+    if (logo && logo.startsWith('http')) return logo;
+    return logoFallback;
+  };
   return (
     <div className='w-full bg-white px-10 py-4 border-b border-gray-400'>
         <div className='flex items-center justify-between'>
             {/*---------- Left side -----------*/}
             <div className=' flex justify-between items-center gap-48'>
               <div className='flex items-center justify-center mr-5'>
-                <img src={logo} alt="" />
-                <img src={bpicblack} alt="" />
+                <img src={getLogoUrl()} alt="logo" className='h-8 w-8 object-contain'/>
+                <span className='ml-2 font-bold text-lg'>{siteTitle || 'Site Title'}</span>
               </div>
                 <div>
                     <div className=''>
