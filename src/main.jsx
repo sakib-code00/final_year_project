@@ -69,7 +69,7 @@ const router = createBrowserRouter([
     ],
 
   },
-  
+
   {
     path: "/user",
     element: <User></User>,
@@ -98,7 +98,7 @@ const router = createBrowserRouter([
         path: "downloads",
         element: <DownloadHistory></DownloadHistory>,
       },
-    ], 
+    ],
   },
   {
     path: "/dashboard",
@@ -110,28 +110,28 @@ const router = createBrowserRouter([
       },
       {
         path: "generalusers",
-        element:<GeneralUsers></GeneralUsers>,
+        element: <GeneralUsers></GeneralUsers>,
       },
       {
         path: "generalsettings",
         element: <GeneralSettings></GeneralSettings>,
       },
-      {
-        path: "addcontent",
-        element: <AddContent></AddContent>,
-      },
+      // {
+      //   path: "addcontent",
+      //   element: <AddContent></AddContent>,
+      // },
       {
         path: "contents",
         element: <Contents></Contents>,
       },
-      {
-        path: "contentsubmission.jsx",
-        element: <ContentSubmission></ContentSubmission>,
-      },
-      {
-        path: "uploadcontent",
-        element: <UploadContent></UploadContent>,
-      },
+      // {
+      //   path: "contentsubmission.jsx",
+      //   element: <ContentSubmission></ContentSubmission>,
+      // },
+      // {
+      //   path: "uploadcontent",
+      //   element: <UploadContent></UploadContent>,
+      // },
     ],
   },
 

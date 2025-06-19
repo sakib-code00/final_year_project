@@ -8,6 +8,7 @@ import ImageDetails from '../ImageDetails'
 import GeneralUsers from '../GeneralUsers'
 import Contents from '../Contents'
 import GeneralSettings from '../GeneralSettings'
+import { Outlet } from 'react-router-dom'
 
 const Dashboard = () => {
   return (
@@ -16,13 +17,14 @@ const Dashboard = () => {
         <div className='flex items-start justify-start gap-5 w-full'>
             <AdminNavBar></AdminNavBar>
             <div className='bg-slate-100 w-10/12 pl-4 h-full'>
-                <UploadContent></UploadContent>
+            <Outlet></Outlet>
+                {/* <UploadContent></UploadContent>
                 <ContentSubmission></ContentSubmission>
                 <AddContent></AddContent>
                 <ImageDetails></ImageDetails>
                 <GeneralUsers></GeneralUsers>
                 <Contents></Contents>
-                <GeneralSettings></GeneralSettings>
+                <GeneralSettings></GeneralSettings> */}
             </div>
         </div>
     </div>
