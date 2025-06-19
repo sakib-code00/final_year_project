@@ -29,6 +29,8 @@ import ContentSubmission from './Components/SuperAdmin/ContentSubmission.jsx';
 import UploadContent from './Components/SuperAdmin/UploadContent.jsx';
 import SearchResult from './Pages/SearchResult.jsx';
 import RequireAdmin from './utils/RequireAdmin.jsx';
+import RequireAuth from './utils/RequireAuth.jsx';
+import RequireGuest from './utils/RequireGuest.jsx';
 
 const router = createBrowserRouter([
   {
@@ -61,11 +63,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login></Login>,
+        element: (
+          <RequireGuest>
+            <Login />
+          </RequireGuest>
+        ),
       },
       {
         path: "/signup",
-        element: <SignUp></SignUp>,
+        element: (
+          <RequireGuest>
+            <SignUp />
+          </RequireGuest>
+        ),
       }
     ],
 
@@ -73,7 +83,11 @@ const router = createBrowserRouter([
 
   {
     path: "/user",
-    element: <User></User>,
+    element: (
+      <RequireAuth>
+        <User />
+      </RequireAuth>
+    ),
     children: [
       {
         index: true,
