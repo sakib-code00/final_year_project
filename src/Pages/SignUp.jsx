@@ -20,13 +20,9 @@ const SignUp = () => {
                     </div>
                     <div className='w-full'>
                         <div className='flex justify-between items-start gap-4'>
-                            <div className='w-1/2 mb-3'>
-                                <p className='mb-1'>First name</p>
-                                <input className=' w-full px-3 py-2 border rounded-lg focus:outline-none' type="text" placeholder='First Name' name="" id="" />
-                            </div>
-                            <div className='w-1/2'>
-                                <p className='mb-1'>Last Name</p>
-                                <input className=' w-full px-3 py-2 border rounded-lg focus:outline-none' type="text" placeholder='Last Name' name="" id="" />
+                            <div className='w-full mb-3'>
+                                <p className='mb-1'>Name</p>
+                                <input className=' w-full px-3 py-2 border rounded-lg focus:outline-none' type="text" placeholder='Name' name="" id="" />
                             </div>
                         </div>
                         <p className='mb-1 w-full'>Email</p>
