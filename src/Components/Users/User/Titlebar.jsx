@@ -6,7 +6,6 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import { AiOutlineSun } from "react-icons/ai";
 import logo from "../../../assets/Images/logo1.png"
 import bpicblack from '../../../assets/Images/Bpicsblack.png'
-import profilepic from '../../../assets/Images/profilepic.png'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -47,7 +46,7 @@ const Titlebar = () => {
 
             {/*----------Right side -----------*/}
             <div className='flex items-center gap-5 justify-center'>
-                <img className='w-16 h-16 bg-gray-400 p-1 rounded-xl' src={profilepic} alt="" />
+                {/* <img className='w-16 h-16 bg-gray-400 p-1 rounded-xl' src={profilepic} alt="" /> */}
             </div>
             {/*----------Right side end -----------*/}
         </div>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import profilepic from '../../../assets/Images/profilepic.png'
 import { RiArrowDownSLine } from "react-icons/ri";
 import { GoHeart } from "react-icons/go";
 import { BiHistory } from "react-icons/bi";
@@ -51,7 +50,7 @@ const SideNav = () => {
             <div className='flex flex-col gap-8'>
                 {/*------User Icon-------*/}
                 <div className='flex items-center gap-3'>
-                    <img className='bg-gray-400 p-1 w-16 h-16 rounded-xl' src={profilepic} alt="" />
+                    {/* <img className='bg-gray-400 p-1 w-16 h-16 rounded-xl' src={profilepic} alt="" /> */}
                     <div>
                         <h1 className='text-base text-gray-700 font-bold'>{user.name}</h1>
                         <p className='text-sm text-gray-400 font-normal'>@{user.username}</p>

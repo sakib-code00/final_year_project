@@ -1,5 +1,4 @@
 import React from 'react'
-import profilepic from '../../../assets/Images/profilepic.png'
 import { RiArrowDownSLine } from "react-icons/ri";
 import { GoHeart } from "react-icons/go";
 import { BiHistory } from "react-icons/bi";

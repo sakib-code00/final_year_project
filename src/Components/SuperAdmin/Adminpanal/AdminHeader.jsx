@@ -2,7 +2,6 @@ import React from 'react'
 import { useSettings } from '../../../contexts/SettingsContext';
 import logoFallback from '../../../assets/Images/logo1.png'
 import bpicblack from '../../../assets/Images/Bpicsblack.png'
-import profilepic from '../../../assets/Images/profilepic.png'
 import { RiSearch2Line } from "react-icons/ri";
 import { RiGalleryLine } from "react-icons/ri";
 import { RiArrowDownSLine } from "react-icons/ri";
@@ -44,7 +43,7 @@ const AdminHeader = () => {
 
             {/*----------Right side -----------*/}
             <div className='flex items-center gap-5 justify-center'>
-                <img className='w-16 h-16 bg-gray-400 p-1 rounded-xl' src={profilepic} alt="" />
+                {/* <img className='w-16 h-16 bg-gray-400 p-1 rounded-xl' src={profilepic} alt="" /> */}
             </div>
             {/*----------Right side end -----------*/}
         </div>
