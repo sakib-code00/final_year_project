@@ -1,33 +1,74 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoImagesOutline } from "react-icons/io5";
 
-const AddContent = () => {
+const AddContent = ({ onClose }) => {
+  const [form, setForm] = useState({ title: '', type: 'Photo', region: '', details: '' });
+  const [file, setFile] = useState(null);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleFileChange = e => setFile(e.target.files[0]);
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setError(''); setSuccess(''); setLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const data = new FormData();
+      Object.entries(form).forEach(([k, v]) => data.append(k, v));
+      if (file) data.append('file', file);
+      const res = await fetch('/api/contents', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: data
+      });
+      const result = await res.json();
+      if (res.ok) {
+        setSuccess('Content added!');
+        setTimeout(() => { onClose(); }, 1000);
+      } else {
+        setError(result.message || 'Add failed');
+      }
+    } catch {
+      setError('Add failed');
+    }
+    setLoading(false);
+  };
+
   return (
-    <div>
-        <div className='bg-white rounded-xl p-4 flex flex-col items-center mt-4 mr-4 min-h-96 justify-center'>
-            <div className='flex items-center justify-between w-full mb-20'>
-                <button className='text-black bg-white border-2 border-black rounded-xl px-4 py-2'>Cancel</button>
-                <h1 className='text-2xl font-bold'>What Will You Share Today?</h1>
-                <div>
-                    <button className='text-black bg-white border-2 border-black rounded-xl px-4 py-2 mr-3'>Save As Draft</button>
-                    <button className='text-white bg-black rounded-xl px-4 py-2'>Continue</button>
-                </div>
-            </div>
-            <div className='flex flex-col text-left w-3/5'>
-                <p className='mb-2'>Title</p>
-                <input className='text-black border rounded-lg p-2 mb-3 focus:border-none' type="text" placeholder='Write Image Title' />
-            </div>
-            <div className='bg-slate-50 border-2 border-dashed border-gray-200 rounded-xl px-8 py-10 text-center flex flex-col items-center'>
-                <IoImagesOutline className='text-4xl font-extrabold'></IoImagesOutline>
-                <h1 className='text-2xl mb-2 text-slate-400'>Drug and drop an image, or <a className='text-black' href="">Browse</a></h1>
-                <p className='text-base mb-2'>Minimum 1600px width recommanded. Max 10MB each (20MB for videos)</p>
-                <li className='text-sm mb-2'>High resulation images (png, jpg, gif) / Videos mp4</li>
-                <li className='text-sm'>Only upload media you own the rights t0</li>
-            </div>
-    
-            </div>
+    <div className='fixed inset-0 bg-black/30 flex items-center justify-center z-50'>
+      <form onSubmit={handleSubmit} className='bg-white rounded-xl p-8 w-[500px] flex flex-col gap-4 relative'>
+        <button type='button' className='absolute top-2 right-2 text-xl' onClick={onClose}>✖</button>
+        <h1 className='text-2xl font-bold mb-4'>Add New Content</h1>
+        <label>Title
+          <input name='title' value={form.title} onChange={handleChange} className='w-full border rounded-lg p-2 mb-2' required />
+        </label>
+        <label>Type
+          <select name='type' value={form.type} onChange={handleChange} className='w-full border rounded-lg p-2 mb-2'>
+            <option value='Photo'>Photo</option>
+            <option value='Video'>Video</option>
+          </select>
+        </label>
+        <label>Region
+          <input name='region' value={form.region} onChange={handleChange} className='w-full border rounded-lg p-2 mb-2' />
+        </label>
+        <label>Image/Video File
+          <input type='file' accept='image/*,video/*' onChange={handleFileChange} className='w-full border rounded-lg p-2 mb-2' />
+        </label>
+        <label>Details
+          <textarea name='details' value={form.details} onChange={handleChange} className='w-full border rounded-lg p-2 mb-2' />
+        </label>
+        {error && <p className='text-red-500'>{error}</p>}
+        {success && <p className='text-green-500'>{success}</p>}
+        <div className='flex justify-end gap-2'>
+          <button type='button' className='border-2 border-black rounded-xl px-4 py-2' onClick={onClose}>Cancel</button>
+          <button type='submit' className='text-white bg-black rounded-xl px-4 py-2' disabled={loading}>{loading ? 'Adding...' : 'Add Content'}</button>
+        </div>
+      </form>
     </div>
-  )
+  );
 }
 
 export default AddContent

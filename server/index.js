@@ -1,17 +1,22 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 import routes from './routes/index.js';
 
 // Load environment variables
 dotenv.config();
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // API routes
 app.use('/api', routes);
