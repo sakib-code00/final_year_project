@@ -39,14 +39,15 @@ const SideNav = () => {
     const gotoDownloads = () => {
         navigate("downloads");
     }
-    const gotoBilling = () => {
-        navigate("billing");
-    }
-
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        navigate('/login');
+    };
 
   return (
     <div>
-        <div className=' bg-white p-4 rounded-xl'>
+        <div className=' bg-white p-4 rounded-xl flex flex-col justify-between min-h-[90vh]'>
             <div className='flex flex-col gap-8'>
                 {/*------User Icon-------*/}
                 <div className='flex items-center gap-3'>
@@ -89,7 +90,7 @@ const SideNav = () => {
                 {/*------Features div-------*/}
 
             </div>
-
+            <button onClick={handleLogout} className='mt-8 w-full bg-red-100 text-red-600 rounded-xl py-2 font-semibold hover:bg-red-200'>Logout</button>
         </div>
     </div>
   )
