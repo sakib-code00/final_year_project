@@ -28,6 +28,7 @@ import Contents from './Components/SuperAdmin/Contents.jsx';
 import ContentSubmission from './Components/SuperAdmin/ContentSubmission.jsx';
 import UploadContent from './Components/SuperAdmin/UploadContent.jsx';
 import SearchResult from './Pages/SearchResult.jsx';
+import RequireAdmin from './utils/RequireAdmin.jsx';
 
 const router = createBrowserRouter([
   {
@@ -102,7 +103,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <RequireAdmin>
+        <Dashboard />
+      </RequireAdmin>
+    ),
     children: [
       {
         index: true,
@@ -116,22 +121,10 @@ const router = createBrowserRouter([
         path: "generalsettings",
         element: <GeneralSettings></GeneralSettings>,
       },
-      // {
-      //   path: "addcontent",
-      //   element: <AddContent></AddContent>,
-      // },
       {
         path: "contents",
         element: <Contents></Contents>,
       },
-      // {
-      //   path: "contentsubmission.jsx",
-      //   element: <ContentSubmission></ContentSubmission>,
-      // },
-      // {
-      //   path: "uploadcontent",
-      //   element: <UploadContent></UploadContent>,
-      // },
     ],
   },
 

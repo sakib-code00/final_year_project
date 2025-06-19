@@ -6,7 +6,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'changeme';
 
 export const signup = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
     if (!name || !email || !password) {
       console.error('Signup error: Missing fields', req.body);
       return res.status(400).json({ message: 'All fields are required' });
@@ -17,10 +17,10 @@ export const signup = async (req, res) => {
       return res.status(409).json({ message: 'User already exists' });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ name, email, password: hashedPassword });
+    const user = new User({ name, email, password: hashedPassword, role: role || 'user' });
     await user.save();
-    const token = jwt.sign({ userId: user._id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
-    res.status(201).json({ token, user: { id: user._id, name: user.name, email: user.email } });
+    const token = jwt.sign({ userId: user._id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
+    res.status(201).json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
   } catch (err) {
     console.error('Signup server error:', err);
     res.status(500).json({ message: 'Server error', error: err.message });
@@ -44,8 +44,8 @@ export const login = async (req, res) => {
       console.error('Login error: Invalid credentials', email);
       return res.status(401).json({ message: 'Invalid credentials' });
     }
-    const token = jwt.sign({ userId: user._id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
-    res.json({ token, user: { id: user._id, name: user.name, email: user.email } });
+    const token = jwt.sign({ userId: user._id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
+    res.json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
   } catch (err) {
     console.error('Login server error:', err);
     res.status(500).json({ message: 'Server error', error: err.message });

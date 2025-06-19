@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   website: { type: String },
   avatar: { type: String },
   username: { type: String, unique: true, sparse: true },
+  role: { type: String, enum: ['user', 'admin'], default: 'user' },
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
