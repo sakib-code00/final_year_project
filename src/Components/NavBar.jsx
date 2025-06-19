@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import logo from '../assets/Images/logo1.png'
+import { useSettings } from '../contexts/SettingsContext';
+import logoFallback from '../assets/Images/logo1.png'
 import bpic from '../assets/Images/Bpics.png'
 import { Link, useNavigate } from 'react-router-dom'
+
+const BACKEND_URL = 'http://localhost:5000';
 
 const NavBar = () => {
   const navigate = useNavigate();
   const gotoHome = () => navigate("/home");
-
+  const { logo, siteTitle } = useSettings();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -21,14 +24,20 @@ const NavBar = () => {
     navigate('/login');
   };
 
+  const getLogoUrl = () => {
+    if (logo && logo.startsWith('/uploads/')) return BACKEND_URL + logo;
+    if (logo && logo.startsWith('http')) return logo;
+    return logoFallback;
+  };
+
   return (
     <div className='w-full'>
       <div className="navbar fixed top-0 w-full z-50 bg-black/60 backdrop-blur-md text-white shadow-md">
         <div className="flex-1">
           <a onClick={gotoHome} className="btn btn-ghost text-xl">
             <div className='flex items-center justify-center'>
-              <img src={logo} alt="" />
-              <img src={bpic} alt="" />
+              <img src={getLogoUrl()} alt="logo" className='h-8 w-8 object-contain'/>
+              <span className='ml-2 font-bold'>{siteTitle || 'Site Title'}</span>
             </div>
           </a>
         </div>

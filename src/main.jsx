@@ -31,6 +31,7 @@ import SearchResult from './Pages/SearchResult.jsx';
 import RequireAdmin from './utils/RequireAdmin.jsx';
 import RequireAuth from './utils/RequireAuth.jsx';
 import RequireGuest from './utils/RequireGuest.jsx';
+import { SettingsProvider } from './contexts/SettingsContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -147,6 +148,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <SettingsProvider>
+      <RouterProvider router={router} />
+    </SettingsProvider>
   </StrictMode>,
 )

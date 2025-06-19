@@ -4,6 +4,7 @@ import profileRoutes from './profile.js';
 import dashboardRoutes from './dashboard.js';
 import usersRoutes from './users.js';
 import contentsRoutes from './contents.js';
+import settingsRoutes from './settings.js';
 
 const router = Router();
 
@@ -12,6 +13,7 @@ router.use('/profile', profileRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/users', usersRoutes);
 router.use('/contents', contentsRoutes);
+router.use('/settings', settingsRoutes);
 
 // Example route
 router.get('/', (req, res) => {
