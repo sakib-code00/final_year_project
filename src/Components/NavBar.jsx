@@ -36,7 +36,7 @@ const NavBar = () => {
           <ul className="menu menu-horizontal px-1">
             {user ? (
               <>
-                <li><span>Hi, {user.name}</span></li>
+                <li><Link to="/user">Hi, {user.name}</Link></li>
                 <li><button onClick={handleLogout} className='cursor-pointer'>Logout</button></li>
               </>
             ) : (
