@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import profilepic from '../../../assets/Images/profilepic.png'
 import { RiArrowDownSLine } from "react-icons/ri";
 import { GoHeart } from "react-icons/go";
@@ -12,8 +12,21 @@ import { RiDownloadCloudLine } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
 
 const SideNav = () => {
-
+    const [user, setUser] = useState({ name: '', username: '' });
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Try to get user from localStorage (set at login/signup/profile update)
+        const stored = localStorage.getItem('user');
+        if (stored) {
+            const u = JSON.parse(stored);
+            setUser({
+                name: u.name || '',
+                username: u.username || (u.email ? u.email.split('@')[0] : '')
+            });
+        }
+    }, []);
+
     const gotoProfile = () => {
         navigate("profile");
     }
@@ -39,8 +52,8 @@ const SideNav = () => {
                 <div className='flex items-center gap-3'>
                     <img className='bg-gray-400 p-1 w-16 h-16 rounded-xl' src={profilepic} alt="" />
                     <div>
-                        <h1 className='text-base text-gray-700 font-bold'>Eric Clark</h1>
-                        <p className='text-sm text-gray-400 font-normal'>@eric-clark06379</p>
+                        <h1 className='text-base text-gray-700 font-bold'>{user.name}</h1>
+                        <p className='text-sm text-gray-400 font-normal'>@{user.username}</p>
                     </div>
                 </div>
                 {/*------User Icon-------*/}
