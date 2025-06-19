@@ -75,11 +75,6 @@ const SideNav = () => {
                 </div>
                 {/*------Features div-------*/}
 
-                <div>
-                    <h2 className='text-base text-gray-700 font-bold'>Your plan will be expired in 7 days</h2>
-                    <p className='text-sm font-normal text-blue-300'>See Plans</p>
-                    <progress className=" bg-yellow-200 progress progress-warning w-56" value={70} max="100"></progress>
-                </div>
             </div>
 
         </div>
