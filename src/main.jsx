@@ -20,7 +20,7 @@ import Login from './Pages/Login.jsx';
 import SignUp from './Pages/SignUp.jsx';
 import AdminHeader from './Components/SuperAdmin/Adminpanal/AdminHeader.jsx';
 import AdminNavBar from './Components/SuperAdmin/Adminpanal/AdminNavBar.jsx';
-import Deshboard from './Components/SuperAdmin/Adminpanal/Deshboard.jsx';
+import Dashboard from './Components/SuperAdmin/Adminpanal/Dashboard.jsx';
 import GeneralUsers from './Components/SuperAdmin/GeneralUsers.jsx';
 import GeneralSettings from './Components/SuperAdmin/GeneralSettings.jsx';
 import AddContent from './Components/SuperAdmin/AddContent.jsx';
@@ -101,8 +101,8 @@ const router = createBrowserRouter([
     ], 
   },
   {
-    path: "/deshboard",
-    element: <Deshboard></Deshboard>,
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
     children: [
       {
         index: true,

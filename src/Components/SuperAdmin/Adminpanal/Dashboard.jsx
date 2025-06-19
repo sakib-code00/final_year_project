@@ -9,7 +9,7 @@ import GeneralUsers from '../GeneralUsers'
 import Contents from '../Contents'
 import GeneralSettings from '../GeneralSettings'
 
-const Deshboard = () => {
+const Dashboard = () => {
   return (
     <div>
         <AdminHeader></AdminHeader>
@@ -29,4 +29,4 @@ const Deshboard = () => {
   )
 }
 
-export default Deshboard
+export default Dashboard
