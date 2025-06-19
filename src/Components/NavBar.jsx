@@ -6,7 +6,7 @@ import Login from '../Pages/Login'
 import SignUp from '../Pages/SignUp'
 import Frame1 from '../assets/Images/Frame 232 (1).png'
 import { FcGoogle } from "react-icons/fc";
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const NavBar = () => {
 
@@ -32,7 +32,7 @@ const NavBar = () => {
           </div>
           <div className="flex-none">
             <ul className="menu menu-horizontal px-1">
-              <li><a className='cursor-pointer' onClick={() => setShowLogin(true)}>Join Now</a></li>
+              <li><Link to="/signup" className='cursor-pointer'>Join Now</Link></li>
             </ul>
           </div>
         </div>
