@@ -1,6 +1,7 @@
 import React from 'react'
 import Frame1 from '../assets/Images/Frame 232 (1).png'
 import { FcGoogle } from "react-icons/fc";
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   return (
@@ -22,21 +23,10 @@ const Login = () => {
                     <input className=' w-full px-3 py-2 border rounded-lg focus:outline-none' type="email" placeholder='Email' name="" id="" />
                     <p className='mb-1 mt-3'>Password</p>
                     <input className=' w-full px-3 py-2 border rounded-lg focus:outline-none' type="password" placeholder='Password' name="" id="" />
-                    <div className=' mt-1flex items-center justify-end'>
-                        <p className='text-right text-red-400 text-base font-normal'><a href="">Forget password?</a></p>
-                    </div>
                 </div>
                 <button className='text-center w-full bg-blue-400 text-white text-lg font-semibold rounded-2xl py-3'>SignIn</button>
-                <div className='flex items-center justify-center w-full '>
-                    <hr className='w-1/2 mr-1' />
-                    <p className='text-bse font-normal text-gray-500'>OR</p>
-                    <hr className='w-1/2 ml-1' />
-                </div>
-                <button className=' flex items-center justify-center text-center w-full border border-gray-400 text-lg font-semibold rounded-2xl py-3'>
-                    <FcGoogle className='text-2xl mr-2'></FcGoogle>
-                    <p>Continue with Google</p>
-                </button>
-                <div></div>
+                <p> Don't have an account? <Link to="/signup" className='text-blue-400 font-semibold'>Sign Up</Link></p>
+
             </div>
         </div>
     </div>
