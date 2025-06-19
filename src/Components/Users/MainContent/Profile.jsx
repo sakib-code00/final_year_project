@@ -5,10 +5,13 @@ import { CiLocationOn } from "react-icons/ci";
 import { TbEdit } from "react-icons/tb";
 import { PiFileArrowDown } from "react-icons/pi";
 
+const BACKEND_URL = 'http://localhost:5000';
+
 const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [edit, setEdit] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', phone: '', website: '', username: '' });
+  const [file, setFile] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -40,31 +43,39 @@ const Profile = () => {
   }, []);
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleFileChange = e => setFile(e.target.files[0]);
 
   const handleUpdate = async e => {
     e.preventDefault();
     setError(''); setSuccess('');
     try {
       const token = localStorage.getItem('token');
+      const data = new FormData();
+      Object.entries(form).forEach(([key, value]) => data.append(key, value));
+      if (file) data.append('profilePic', file);
       const res = await fetch('/api/profile', {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(form)
+        headers: { Authorization: `Bearer ${token}` },
+        body: data
       });
-      const data = await res.json();
+      const dataRes = await res.json();
       if (res.ok) {
-        setProfile(data);
+        setProfile(dataRes);
         setEdit(false);
         setSuccess('Profile updated!');
+        setFile(null);
       } else {
-        setError(data.message || 'Update failed');
+        setError(dataRes.message || 'Update failed');
       }
     } catch (err) {
       setError('Update failed');
     }
+  };
+
+  const getProfilePic = () => {
+    if (profile?.profilePic && profile.profilePic.startsWith('/uploads/')) return BACKEND_URL + profile.profilePic;
+    if (profile?.profilePic && profile.profilePic.startsWith('http')) return profile.profilePic;
+    return image3;
   };
 
   if (!profile) return <div>Loading...</div>;
@@ -82,8 +93,8 @@ const Profile = () => {
             <div className='relative bottom-20 left-10'>
               <div className='flex items-end justify-between w-11/12'>
                 <div className='flex items-end justify-center gap-2'>
-                  <img className='bg-gray-400 border rounded-full p-1' src={image3} alt="" />
-                  <div>
+                  <img className='bg-gray-400 border rounded-full p-1 w-20 h-20 object-cover' src={getProfilePic()} alt="profile" />
+                  <div className='text-white bg-gray-800/40 p-2 rounded-xl'>
                     <h1>{profile.name}</h1>
                     <p>@{profile.username || profile.email?.split('@')[0]}</p>
                   </div>
@@ -107,7 +118,11 @@ const Profile = () => {
               <TbEdit onClick={() => setEdit(true)} style={{ cursor: 'pointer' }} />
             </div>
             {edit ? (
-              <form onSubmit={handleUpdate} className='space-y-4'>
+              <form onSubmit={handleUpdate} className='space-y-4' encType='multipart/form-data'>
+                <div>
+                  <p>Profile Picture:</p>
+                  <input type='file' accept='image/*' onChange={handleFileChange} />
+                </div>
                 <div>
                   <p>Name:</p>
                   <input name='name' value={form.name} onChange={handleChange} className='w-full px-3 py-2 border rounded-lg focus:outline-none' />
