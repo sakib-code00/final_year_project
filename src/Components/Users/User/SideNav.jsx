@@ -59,23 +59,6 @@ const SideNav = () => {
                 </div>
                 {/*------Features div 1-------*/}
 
-                {/*------Features div 2-------*/}
-                <div onClick={gotoBilling} className='flex flex-col gap-3 items-start'>
-                    <h1 className='text-small text-gray-400 font-bold'>Payment & Billing</h1>
-                    <div className='flex p-2 w-full font-medium gap-1 cursor-pointer hover:bg-black hover:text-white'>
-                        <MdOutlineSubscriptions className='text-2xl font-medium ml-1 text-gray-400'></MdOutlineSubscriptions>
-                        <p className="text-base text-gray-400">Subscription Plans</p>
-                    </div>
-                    <div className='flex p-2 w-full font-medium gap-1 cursor-pointer hover:bg-black hover:text-white'>
-                        <MdOutlinePayment className='text-2xl font-medium ml-1 text-gray-400'></MdOutlinePayment>
-                        <p className="text-base text-gray-400">Payment Mathods</p>
-                    </div>
-                    <div className='flex p-2 w-full font-medium gap-1 cursor-pointer hover:bg-black hover:text-white'>
-                        <CiMoneyBill className='text-2xl font-medium ml-1 text-gray-400'></CiMoneyBill>
-                        <p className="text-base text-gray-400">Billing History</p>
-                    </div>
-                </div>
-                {/*------Features div 2-------*/}
 
 
                 {/*------Features div 3-------*/}
