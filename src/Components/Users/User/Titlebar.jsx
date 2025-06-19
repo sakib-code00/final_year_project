@@ -47,13 +47,6 @@ const Titlebar = () => {
 
             {/*----------Right side -----------*/}
             <div className='flex items-center gap-5 justify-center'>
-                <button className='flex items-center justify-center bg-gray-100 px-4 py-2 rounded-3xl font-medium'>
-                    <p className="text-base text-gray-600">Explore More</p>
-                    <RiArrowRightSLine className='text-xl font-medium ml-1 text-gray-500'></RiArrowRightSLine>
-                </button>
-                <button className='flex items-center justify-center bg-gray-100 p-2 rounded-full font-medium'>
-                    <AiOutlineSun className='text-2xl font-medium text-gray-500'></AiOutlineSun>
-                </button>
                 <img className='w-16 h-16 bg-gray-400 p-1 rounded-xl' src={profilepic} alt="" />
             </div>
             {/*----------Right side end -----------*/}
