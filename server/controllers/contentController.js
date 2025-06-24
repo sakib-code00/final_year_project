@@ -3,7 +3,16 @@ import path from 'path';
 
 export const getAllContents = async (req, res) => {
   try {
-    const contents = await Content.find().populate('uploader', 'name email');
+    const contents = await Content.find().populate('uploader', 'name email profilePic');
+    res.json(contents);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+};
+
+export const getPublicContents = async (req, res) => {
+  try {
+    const contents = await Content.find().populate('uploader', 'name profilePic');
     res.json(contents);
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });
