@@ -40,7 +40,6 @@ const Gallery = () => {
             <div className='relative' key={content._id}>
                 <img className='h-full w-full' src={content.thumbnail && content.thumbnail.startsWith('/uploads/') ? BACKEND_URL + content.thumbnail : content.thumbnail} alt={content.title} />
                 <div className='backdrop-blur-md absolute top-0.5 right-0.5 p-5 gap-4 flex items-center justify-end w-full'>
-                    <FiPlus className='text-5xl text-white bg-slate-400 p-2 rounded-full'></FiPlus>
                     <GoHeart className='text-5xl text-white bg-slate-400 p-3 rounded-full'></GoHeart>
                 </div>
                 <div className='backdrop-blur-md absolute bottom-0 flex items-center justify-between w-full p-5'>
@@ -53,7 +52,7 @@ const Gallery = () => {
                 </div>
             </div>
           ))}
-        </div>
+          </div>
         <button className='flex items-center justify-center bg-gray-100 px-4 py-2 rounded-3xl mt-8 font-medium'>
             <p className="text-base text-gray-600">Explore More</p>
             <RiArrowRightSLine className='text-xl font-medium ml-1 text-gray-500'></RiArrowRightSLine>
