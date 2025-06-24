@@ -15,15 +15,28 @@ const SideNav = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Try to get user from localStorage (set at login/signup/profile update)
-        const stored = localStorage.getItem('user');
-        if (stored) {
-            const u = JSON.parse(stored);
-            setUser({
-                name: u.name || '',
-                username: u.username || (u.email ? u.email.split('@')[0] : '')
-            });
-        }
+        const fetchUserProfile = async () => {
+            try {
+                const response = await fetch('/api/profile', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setUser({
+                        name: data.name || '',
+                        username: data.username || (data.email ? data.email.split('@')[0] : '')
+                    });
+                } else {
+                    console.error('Failed to fetch user profile');
+                }
+            } catch (error) {
+                console.error('Error fetching user profile:', error);
+            }
+        };
+        fetchUserProfile();
     }, []);
 
     const gotoProfile = () => {
@@ -50,7 +63,6 @@ const SideNav = () => {
             <div className='flex flex-col gap-8'>
                 {/*------User Icon-------*/}
                 <div className='flex items-center gap-3'>
-                    {/* <img className='bg-gray-400 p-1 w-16 h-16 rounded-xl' src={profilepic} alt="" /> */}
                     <div>
                         <h1 className='text-base text-gray-700 font-bold'>{user.name}</h1>
                         <p className='text-sm text-gray-400 font-normal'>@{user.username}</p>
