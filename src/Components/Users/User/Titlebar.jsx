@@ -8,6 +8,7 @@ import logo from "../../../assets/Images/logo1.png"
 import bpicblack from '../../../assets/Images/Bpicsblack.png'
 import { useNavigate } from 'react-router-dom';
 import { useSettings } from '../../../contexts/SettingsContext';
+import logoFallback from '../../../assets/Images/logo1.png';
 
 
 const Titlebar = () => {
