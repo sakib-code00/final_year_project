@@ -7,14 +7,25 @@ import { AiOutlineSun } from "react-icons/ai";
 import logo from "../../../assets/Images/logo1.png"
 import bpicblack from '../../../assets/Images/Bpicsblack.png'
 import { useNavigate } from 'react-router-dom';
+import { useSettings } from '../../../contexts/SettingsContext';
 
 
 const Titlebar = () => {
+
+    const BACKEND_URL = 'http://localhost:5000';
 
     const navigate = useNavigate();
     const gotoHome = () => {
         navigate("/home");
     }
+
+      const { logo, siteTitle } = useSettings();
+
+        const getLogoUrl = () => {
+          if (logo && logo.startsWith('/uploads/')) return BACKEND_URL + logo;
+          if (logo && logo.startsWith('http')) return logo;
+          return logoFallback;
+        };
 
 
   return (
@@ -23,8 +34,8 @@ const Titlebar = () => {
             {/*---------- Left side -----------*/}
             <div className=' flex items-center gap-6'>
               <div onClick={gotoHome} className='flex items-center justify-center cursor-pointer'>
-                <img src={logo} alt="" />
-                <img src={bpicblack} alt="" />
+              <img src={getLogoUrl()} alt="logo" className='h-8 w-8 object-contain'/>
+              <span className='ml-2 font-bold'>{siteTitle || 'Site Title'}</span>
               </div>
                 <div>
                     <div className=''>
