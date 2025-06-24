@@ -1,26 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom';
 import { TbPhotoSquareRounded } from "react-icons/tb";
 import { BiMoviePlay } from "react-icons/bi";
 import { HiOutlineUser } from "react-icons/hi";
-import { RiFilter3Fill } from "react-icons/ri";
-import { RiArrowDownSLine } from "react-icons/ri";
-import User_Icons from "../assets/Icons/user.png"
+import { RiFilter3Fill, RiArrowDownSLine, RiArrowRightSLine } from "react-icons/ri";
 import { FiPlus } from "react-icons/fi";
-import { GoHeart } from "react-icons/go";
-import { GoDownload } from "react-icons/go";
-import { GoCircle } from "react-icons/go";
-import { RiArrowRightSLine } from "react-icons/ri";
-import Crops from "../assets/Images/image.png"
-import Img_1 from "../assets/Images/image (1).png"
-import Img_2 from "../assets/Images/image (2).png"
-import Img_3 from "../assets/Images/image (3).png"
-import Img_4 from "../assets/Images/image (4).png"
-import Img_5 from "../assets/Images/image (5).png"
-import Img_6 from "../assets/Images/image (6).png"
-import Img_8 from "../assets/Images/image (7).png"
-import Img_9 from "../assets/Images/image (8).png"
+import { GoHeart, GoDownload, GoCircle } from "react-icons/go";
+const BACKEND_URL = 'http://localhost:5000';
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 const SearchResult = () => {
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const query = useQuery().get('q') || '';
+
+  useEffect(() => {
+    const fetchResults = async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const res = await fetch(`/api/contents/public?q=${encodeURIComponent(query)}`);
+        const data = await res.json();
+        if (res.ok) setResults(data);
+        else setError(data.message || 'Failed to load results');
+      } catch {
+        setError('Failed to load results');
+      }
+      setLoading(false);
+    };
+    fetchResults();
+  }, [query]);
+
   return (
     <div className='w-11/12 mt-20'>
         <div>
@@ -38,15 +52,15 @@ const SearchResult = () => {
                 <div className='flex items-start justify-start gap-5'>
                     <button className='flex items-center justify-center gap-1 bg-black text-white py-2 px-4 rounded-full'>
                         <TbPhotoSquareRounded className='text-xl'></TbPhotoSquareRounded>
-                        <p>Photos <span className='text-gray-300'>(18k)</span></p>
+                        <p>Photos</p>
                     </button>
                     <button className='flex items-center justify-center gap-1  text-black py-2 px-4 rounded-full'>
                         <BiMoviePlay className='text-xl'></BiMoviePlay>
-                        <p>Videos <span className='text-gray-300'>(10k)</span></p>
+                        <p>Videos</p>
                     </button>
                     <button className='flex items-center justify-center gap-1 text-black py-2 px-4 rounded-full'>
                         <HiOutlineUser className='text-xl'></HiOutlineUser>
-                        <p>User <span className='text-gray-300'>(5k)</span></p>
+                        <p>User</p>
                     </button>
                 </div>
 
@@ -77,207 +91,28 @@ const SearchResult = () => {
                 <div className='w-1/3 p-1 flex items-center justify-start gap-1 border border-gray-400 rounded-lg'>
                     <GoCircle className='text-lg text-gray-300 font-medium'></GoCircle>
                     <p className='text-base text-gray-400 font-medium'>Enter Hex Code</p>
-                    
                 </div>
             </div>
             {/*----------- Categories bar End Here----------*/}
 
             {/*----------- Images Section Start ----------*/}
             <div className='mt-4  columns-3 gap-4 space-y-4'>
-                <div className='relative '>
-                    <img className='h-full w-full' src={Crops} alt="" />
+              {loading ? <div>Loading...</div> : error ? <div className='text-red-500'>{error}</div> : results.map(content => (
+                <div className='relative' key={content._id}>
+                    <img className='h-full w-full' src={content.thumbnail && content.thumbnail.startsWith('/uploads/') ? BACKEND_URL + content.thumbnail : content.thumbnail} alt={content.title} />
                     <div className='backdrop-blur-md absolute top-0.5 right-0.5 p-5 gap-4 flex items-center justify-end w-full'>
                         <FiPlus className='text-5xl text-white bg-slate-400 p-2 rounded-full'></FiPlus>
                         <GoHeart className='text-5xl text-white bg-slate-400 p-3 rounded-full'></GoHeart>
                     </div>
                     <div className='backdrop-blur-md absolute bottom-0 flex items-center justify-between w-full p-5'>
                         <div className=' flex items-center gap-1'>
-                            <img src={User_Icons} alt="" />
-                            <p className='text-white text-xl font-medium'>Quadiz Digital Agency</p>
+                            <img src={content.uploader?.profilePic ? (content.uploader.profilePic.startsWith('/uploads/') ? BACKEND_URL + content.uploader.profilePic : content.uploader.profilePic) : '/default-user.png'} alt="" className='w-8 h-8 rounded-full object-cover'/>
+                            <p className='text-white text-xl font-medium'>{content.uploader?.name || 'Unknown'}</p>
                         </div>
                         <GoDownload className='text-5xl text-white bg-slate-400 p-2 rounded-full'></GoDownload>
                     </div>
                 </div>
-    
-                <div className='relative '>
-                    <img className='h-full w-full' src={Img_9} alt="" />
-                    <div className='backdrop-blur-md absolute top-0.5 right-0.5 p-5 gap-4 flex items-center justify-end w-full'>
-                        <FiPlus className='text-5xl text-white bg-slate-400 p-2 rounded-full'></FiPlus>
-                        <GoHeart className='text-5xl text-white bg-slate-400 p-3 rounded-full'></GoHeart>
-                    </div>
-                    <div className='backdrop-blur-md absolute bottom-0 flex items-center justify-between w-full p-5'>
-                        <div className=' flex items-center gap-1'>
-                            <img src={User_Icons} alt="" />
-                            <p className='text-white text-xl font-medium'>Quadiz Digital Agency</p>
-                        </div>
-                        <GoDownload className='text-5xl text-white bg-slate-400 p-2 rounded-full'></GoDownload>
-                    </div>
-                </div>
-    
-                <div className='relative '>
-                    <img className='h-full w-full' src={Img_1} alt="" />
-                    <div className='backdrop-blur-md absolute top-0.5 right-0.5 p-5 gap-4 flex items-center justify-end w-full'>
-                        <FiPlus className='text-5xl text-white bg-slate-400 p-2 rounded-full'></FiPlus>
-                        <GoHeart className='text-5xl text-white bg-slate-400 p-3 rounded-full'></GoHeart>
-                    </div>
-                    <div className='backdrop-blur-md absolute bottom-0 flex items-center justify-between w-full p-5'>
-                        <div className=' flex items-center gap-1'>
-                            <img src={User_Icons} alt="" />
-                            <p className='text-white text-xl font-medium'>Quadiz Digital Agency</p>
-                        </div>
-                        <GoDownload className='text-5xl text-white bg-slate-400 p-2 rounded-full'></GoDownload>
-                    </div>
-                </div>
-    
-                <div className='relative '>
-                    <img className='h-full w-full' src={Img_2} alt="" />
-                    <div className='backdrop-blur-md absolute top-0 right-0 p-5 gap-4 flex items-center justify-end w-full'>
-                        <FiPlus className='text-5xl text-white bg-slate-400 p-2 rounded-full'></FiPlus>
-                        <GoHeart className='text-5xl text-white bg-slate-400 p-3 rounded-full'></GoHeart>
-                    </div>
-                    <div className='backdrop-blur-md absolute bottom-0 flex items-center justify-between w-full p-5'>
-                        <div className=' flex items-center gap-1'>
-                            <img src={User_Icons} alt="" />
-                            <p className='text-white text-xl font-medium'>Quadiz Digital Agency</p>
-                        </div>
-                        <GoDownload className='text-5xl text-white bg-slate-400 p-2 rounded-full'></GoDownload>
-                    </div>
-                </div>
-    
-                <div className='relative '>
-                    <img className='h-full w-full' src={Img_3} alt="" />
-                    <div className='backdrop-blur-md absolute top-0 right-0 p-5 gap-4 flex items-center justify-end w-full'>
-                        <FiPlus className='text-5xl text-white bg-slate-400 p-2 rounded-full'></FiPlus>
-                        <GoHeart className='text-5xl text-white bg-slate-400 p-3 rounded-full'></GoHeart>
-                    </div>
-                    <div className='backdrop-blur-md absolute bottom-0 flex items-center justify-between w-full p-5'>
-                        <div className=' flex items-center gap-1'>
-                            <img src={User_Icons} alt="" />
-                            <p className='text-white text-xl font-medium'>Quadiz Digital Agency</p>
-                        </div>
-                        <GoDownload className='text-5xl text-white bg-slate-400 p-2 rounded-full'></GoDownload>
-                    </div>
-                </div>
-    
-                <div className='relative '>
-                    <img className='h-full w-full' src={Img_4} alt="" />
-                    <div className='backdrop-blur-md absolute top-0 right-0 p-5 gap-4 flex items-center justify-end w-full'>
-                        <FiPlus className='text-5xl text-white bg-slate-400 p-2 rounded-full'></FiPlus>
-                        <GoHeart className='text-5xl text-white bg-slate-400 p-3 rounded-full'></GoHeart>
-                    </div>
-                    <div className='backdrop-blur-md absolute bottom-0 flex items-center justify-between w-full p-5'>
-                        <div className=' flex items-center gap-1'>
-                            <img src={User_Icons} alt="" />
-                            <p className='text-white text-xl font-medium'>Quadiz Digital Agency</p>
-                        </div>
-                        <GoDownload className='text-5xl text-white bg-slate-400 p-2 rounded-full'></GoDownload>
-                    </div>
-                </div>
-    
-                <div className='relative '>
-                    <img className='h-full w-full' src={Img_5} alt="" />
-                    <div className='backdrop-blur-md absolute top-0 right-0 p-5 gap-4 flex items-center justify-end w-full'>
-                        <FiPlus className='text-5xl text-white bg-slate-400 p-2 rounded-full'></FiPlus>
-                        <GoHeart className='text-5xl text-white bg-slate-400 p-3 rounded-full'></GoHeart>
-                    </div>
-                    <div className='backdrop-blur-md absolute bottom-0 flex items-center justify-between w-full p-5'>
-                        <div className=' flex items-center gap-1'>
-                            <img src={User_Icons} alt="" />
-                            <p className='text-white text-xl font-medium'>Quadiz Digital Agency</p>
-                        </div>
-                        <GoDownload className='text-5xl text-white bg-slate-400 p-2 rounded-full'></GoDownload>
-                    </div>
-                </div>
-    
-                <div className='relative '>
-                    <img className='h-full w-full' src={Img_2} alt="" />
-                    <div className='backdrop-blur-md absolute top-0 right-0 p-5 gap-4 flex items-center justify-end w-full'>
-                        <FiPlus className='text-5xl text-white bg-slate-400 p-2 rounded-full'></FiPlus>
-                        <GoHeart className='text-5xl text-white bg-slate-400 p-3 rounded-full'></GoHeart>
-                    </div>
-                    <div className='backdrop-blur-md absolute bottom-0 flex items-center justify-between w-full p-5'>
-                        <div className=' flex items-center gap-1'>
-                            <img src={User_Icons} alt="" />
-                            <p className='text-white text-xl font-medium'>Quadiz Digital Agency</p>
-                        </div>
-                        <GoDownload className='text-5xl text-white bg-slate-400 p-2 rounded-full'></GoDownload>
-                    </div>
-                </div>
-    
-                <div className='relative '>
-                    <img className='h-full w-full' src={Img_6} alt="" />
-                    <div className='backdrop-blur-md absolute top-0 right-0 p-5 gap-4 flex items-center justify-end w-full'>
-                        <FiPlus className='text-5xl text-white bg-slate-400 p-2 rounded-full'></FiPlus>
-                        <GoHeart className='text-5xl text-white bg-slate-400 p-3 rounded-full'></GoHeart>
-                    </div>
-                    <div className='backdrop-blur-md absolute bottom-0 flex items-center justify-between w-full p-5'>
-                        <div className=' flex items-center gap-1'>
-                            <img src={User_Icons} alt="" />
-                            <p className='text-white text-xl font-medium'>Quadiz Digital Agency</p>
-                        </div>
-                        <GoDownload className='text-5xl text-white bg-slate-400 p-2 rounded-full'></GoDownload>
-                    </div>
-                </div>
-    
-                <div className='relative '>
-                    <img className='h-full w-full' src={Img_8} alt="" />
-                    <div className='backdrop-blur-md absolute top-0 right-0 p-5 gap-4 flex items-center justify-end w-full'>
-                        <FiPlus className='text-5xl text-white bg-slate-400 p-2 rounded-full'></FiPlus>
-                        <GoHeart className='text-5xl text-white bg-slate-400 p-3 rounded-full'></GoHeart>
-                    </div>
-                    <div className='backdrop-blur-md absolute bottom-0 flex items-center justify-between w-full p-5'>
-                        <div className=' flex items-center gap-1'>
-                            <img src={User_Icons} alt="" />
-                            <p className='text-white text-xl font-medium'>Quadiz Digital Agency</p>
-                        </div>
-                        <GoDownload className='text-5xl text-white bg-slate-400 p-2 rounded-full'></GoDownload>
-                    </div>
-                </div>
-    
-                <div className='relative '>
-                    <img className='h-full w-full' src={Img_4} alt="" />
-                    <div className='backdrop-blur-md absolute top-0 right-0 p-5 gap-4 flex items-center justify-end w-full'>
-                        <FiPlus className='text-5xl text-white bg-slate-400 p-2 rounded-full'></FiPlus>
-                        <GoHeart className='text-5xl text-white bg-slate-400 p-3 rounded-full'></GoHeart>
-                    </div>
-                    <div className='backdrop-blur-md absolute bottom-0 flex items-center justify-between w-full p-5'>
-                        <div className=' flex items-center gap-1'>
-                            <img src={User_Icons} alt="" />
-                            <p className='text-white text-xl font-medium'>Quadiz Digital Agency</p>
-                        </div>
-                        <GoDownload className='text-5xl text-white bg-slate-400 p-2 rounded-full'></GoDownload>
-                    </div>
-                </div>
-    
-                <div className='relative '>
-                    <img className='h-full w-full' src={Img_9} alt="" />
-                    <div className='backdrop-blur-md absolute top-0 right-0 p-5 gap-4 flex items-center justify-end w-full'>
-                        <FiPlus className='text-5xl text-white bg-slate-400 p-2 rounded-full'></FiPlus>
-                        <GoHeart className='text-5xl text-white bg-slate-400 p-3 rounded-full'></GoHeart>
-                    </div>
-                    <div className='backdrop-blur-md absolute bottom-0 flex items-center justify-between w-full p-5'>
-                        <div className=' flex items-center gap-1'>
-                            <img src={User_Icons} alt="" />
-                            <p className='text-white text-xl font-medium'>Quadiz Digital Agency</p>
-                        </div>
-                        <GoDownload className='text-5xl text-white bg-slate-400 p-2 rounded-full'></GoDownload>
-                    </div>
-                </div>
-    
-                <div className='relative '>
-                    <img className='h-full w-full' src={Img_3} alt="" />
-                    <div className='backdrop-blur-md absolute top-0 right-0 p-5 gap-4 flex items-center justify-end w-full'>
-                        <FiPlus className='text-5xl text-white bg-slate-400 p-2 rounded-full'></FiPlus>
-                        <GoHeart className='text-5xl text-white bg-slate-400 p-3 rounded-full'></GoHeart>
-                    </div>
-                    <div className='backdrop-blur-md absolute bottom-0 flex items-center justify-between w-full p-5'>
-                        <div className=' flex items-center gap-1'>
-                            <img src={User_Icons} alt="" />
-                            <p className='text-white text-xl font-medium'>Quadiz Digital Agency</p>
-                        </div>
-                        <GoDownload className='text-5xl text-white bg-slate-400 p-2 rounded-full'></GoDownload>
-                    </div>
-                </div>
+              ))}
             </div>        
             {/*----------- Images Section End ----------*/}
 

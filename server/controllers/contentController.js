@@ -12,7 +12,18 @@ export const getAllContents = async (req, res) => {
 
 export const getPublicContents = async (req, res) => {
   try {
-    const contents = await Content.find().populate('uploader', 'name profilePic');
+    const { q } = req.query;
+    let filter = {};
+    if (q) {
+      filter = {
+        $or: [
+          { title: { $regex: q, $options: 'i' } },
+          { region: { $regex: q, $options: 'i' } },
+          { details: { $regex: q, $options: 'i' } }
+        ]
+      };
+    }
+    const contents = await Content.find(filter).populate('uploader', 'name profilePic');
     res.json(contents);
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });
