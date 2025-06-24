@@ -5,6 +5,7 @@ import dashboardRoutes from './dashboard.js';
 import usersRoutes from './users.js';
 import contentsRoutes from './contents.js';
 import settingsRoutes from './settings.js';
+import wishlistRoutes from './wishlist.js';
 
 const router = Router();
 
@@ -14,6 +15,7 @@ router.use('/dashboard', dashboardRoutes);
 router.use('/users', usersRoutes);
 router.use('/contents', contentsRoutes);
 router.use('/settings', settingsRoutes);
+router.use('/wishlist', wishlistRoutes);
 
 // Example route
 router.get('/', (req, res) => {

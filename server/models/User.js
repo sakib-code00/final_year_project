@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   profilePic: { type: String },
   username: { type: String, unique: true, sparse: true },
   role: { type: String, enum: ['user', 'admin'], default: 'user' },
+  wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Content' }],
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
