@@ -83,3 +83,33 @@ export const getWishlist = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 };
+
+export const addToDownloadHistory = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const { contentId } = req.params;
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    if (!user.downloadHistory.includes(contentId)) {
+      user.downloadHistory.push(contentId);
+      await user.save();
+    }
+    res.json({ message: 'Added to download history', downloadHistory: user.downloadHistory });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+};
+
+export const getDownloadHistory = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const user = await User.findById(userId).populate({
+      path: 'downloadHistory',
+      populate: { path: 'uploader', select: 'name profilePic' }
+    });
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.json(user.downloadHistory);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+};

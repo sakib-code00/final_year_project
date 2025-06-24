@@ -1,162 +1,64 @@
-import React from 'react'
-import { RiDeleteBinLine } from "react-icons/ri";
-import { GoShareAndroid } from "react-icons/go";
-import { PiDotsThreeOutlineLight } from "react-icons/pi";
-import { BiFileBlank } from "react-icons/bi";
-import { PiFileArrowDown } from "react-icons/pi";
-import { HiOutlineUser } from "react-icons/hi2";
-import { MdOutlineSystemUpdateAlt } from "react-icons/md"
-import image11 from "../Wishlist/images/image (11).png"
+import React, { useEffect, useState } from 'react'
+const BACKEND_URL = 'http://localhost:5000';
 
 const DownloadHistory = () => {
+  const [downloads, setDownloads] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchDownloads = async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const token = localStorage.getItem('token');
+        const res = await fetch('/api/downloads', { headers: { Authorization: `Bearer ${token}` } });
+        const data = await res.json();
+        if (res.ok) setDownloads(data);
+        else setError(data.message || 'Failed to load download history');
+      } catch {
+        setError('Failed to load download history');
+      }
+      setLoading(false);
+    };
+    fetchDownloads();
+  }, []);
+
   return (
     <div>
-        <div className='bg-white p-6 rounded-xl'>
-
-            {/*----History Title Bar */}
-            <div className='flex items-center justify-between mb-6'>
-                <h1 className='text-2xl font-bold text-gray-700'>All Downloads</h1>
-                <div className='flex items-center gap-4'>
-                    <GoShareAndroid className='text-gray-700 font-semibold text-2xl'></GoShareAndroid>
-                    <PiDotsThreeOutlineLight className='text-gray-700 font-semibold text-2xl'></PiDotsThreeOutlineLight>
-                                
-                </div>
-            </div>
-
-           {/*------Downloads------ */} 
-           <div className='flex flex-col gap-5'>
-                <div className='grid grid-cols-4 items-center justify-between gap-6'>
-
-                    {/*------Downloads History title------ */} 
-                    <div className='flex items-center justify-start gap-1'>
-                        <BiFileBlank className='text-2xl text-gray-400 font-medium'></BiFileBlank>
-                        <p className='text-gray-400 text-base font-normal'>File Name</p>
-                    </div>
-                    <div className='flex items-center justify-start gap-1'>
-                        <HiOutlineUser className='text-2xl text-gray-400 font-medium'></HiOutlineUser>
-                        <p className='text-gray-400 text-base font-normal'>Arthur</p>
-                    </div>
-                    <div className='flex items-center justify-start gap-1'>
-                        <MdOutlineSystemUpdateAlt className='text-2xl text-gray-400 font-medium'></MdOutlineSystemUpdateAlt>
-                        <p className='text-gray-400 text-base font-normal'>Date</p>
-                    </div>
-                </div>
-
-
-                {/*------Downloads History------ */}
-                 <div className='grid grid-cols-4 items-center justify-between gap-6 bg-gray-50 p-4 rounded-xl'>
-                        <div className='flex items-center justify-start gap-2'>
-                            <img className='w-14' src={image11} alt="" />
-                            <p className='text-sm font-bold text-gray-700'>The Intersection of Chaos and Harmony</p>
-                        </div>
-                        <div>
-                            <p className='text-sm font-normal text-gray-400'>by @eric-clark</p>
-                        </div>
-                        <div>
-                            <p className='text-sm font-normal text-gray-400'>22 Jan 2025</p>
-                        </div>
-                        <div className='flex items-center gap-2  justify-end'>
-                            <PiFileArrowDown className='text-gray-700 bg-gray-100 text-4xl p-2 rounded-xl'></PiFileArrowDown>
-                            <RiDeleteBinLine className='text-gray-700 bg-gray-100 text-4xl p-2 rounded-xl'></RiDeleteBinLine>
-                        </div>
-                </div>
-
-                {/*------Downloads History------ */}
-                <div className='grid grid-cols-4 items-center justify-between gap-6 bg-gray-50 p-4 rounded-xl'>
-                        <div className='flex items-center justify-start gap-2'>
-                            <img className='w-14' src={image11} alt="" />
-                            <p className='text-sm font-bold text-gray-700'>The Intersection of Chaos and Harmony</p>
-                        </div>
-                        <div>
-                            <p className='text-sm font-normal text-gray-400'>by @eric-clark</p>
-                        </div>
-                        <div>
-                            <p className='text-sm font-normal text-gray-400'>22 Jan 2025</p>
-                        </div>
-                        <div className='flex items-center gap-2  justify-end'>
-                            <PiFileArrowDown className='text-gray-700 bg-gray-100 text-4xl p-2 rounded-xl'></PiFileArrowDown>
-                            <RiDeleteBinLine className='text-gray-700 bg-gray-100 text-4xl p-2 rounded-xl'></RiDeleteBinLine>
-                        </div>
-                </div>
-
-                {/*------Downloads History------ */}
-                <div className='grid grid-cols-4 items-center justify-between gap-6 bg-gray-50 p-4 rounded-xl'>
-                        <div className='flex items-center justify-start gap-2'>
-                            <img className='w-14' src={image11} alt="" />
-                            <p className='text-sm font-bold text-gray-700'>The Intersection of Chaos and Harmony</p>
-                        </div>
-                        <div>
-                            <p className='text-sm font-normal text-gray-400'>by @eric-clark</p>
-                        </div>
-                        <div>
-                            <p className='text-sm font-normal text-gray-400'>22 Jan 2025</p>
-                        </div>
-                        <div className='flex items-center gap-2  justify-end'>
-                            <PiFileArrowDown className='text-gray-700 bg-gray-100 text-4xl p-2 rounded-xl'></PiFileArrowDown>
-                            <RiDeleteBinLine className='text-gray-700 bg-gray-100 text-4xl p-2 rounded-xl'></RiDeleteBinLine>
-                        </div>
-                </div>
-
-
-                {/*------Downloads History------ */}
-                <div className='grid grid-cols-4 items-center justify-between gap-6 bg-gray-50 p-4 rounded-xl'>
-                        <div className='flex items-center justify-start gap-2'>
-                            <img className='w-14' src={image11} alt="" />
-                            <p className='text-sm font-bold text-gray-700'>The Intersection of Chaos and Harmony</p>
-                        </div>
-                        <div>
-                            <p className='text-sm font-normal text-gray-400'>by @eric-clark</p>
-                        </div>
-                        <div>
-                            <p className='text-sm font-normal text-gray-400'>22 Jan 2025</p>
-                        </div>
-                        <div className='flex items-center gap-2  justify-end'>
-                            <PiFileArrowDown className='text-gray-700 bg-gray-100 text-4xl p-2 rounded-xl'></PiFileArrowDown>
-                            <RiDeleteBinLine className='text-gray-700 bg-gray-100 text-4xl p-2 rounded-xl'></RiDeleteBinLine>
-                        </div>
-                </div>
-
-
-                {/*------Downloads History------ */}
-                <div className='grid grid-cols-4 items-center justify-between gap-6 bg-gray-50 p-4 rounded-xl'>
-                        <div className='flex items-center justify-start gap-2'>
-                            <img className='w-14' src={image11} alt="" />
-                            <p className='text-sm font-bold text-gray-700'>The Intersection of Chaos and Harmony</p>
-                        </div>
-                        <div>
-                            <p className='text-sm font-normal text-gray-400'>by @eric-clark</p>
-                        </div>
-                        <div>
-                            <p className='text-sm font-normal text-gray-400'>22 Jan 2025</p>
-                        </div>
-                        <div className='flex items-center gap-2  justify-end'>
-                            <PiFileArrowDown className='text-gray-700 bg-gray-100 text-4xl p-2 rounded-xl'></PiFileArrowDown>
-                            <RiDeleteBinLine className='text-gray-700 bg-gray-100 text-4xl p-2 rounded-xl'></RiDeleteBinLine>
-                        </div>
-                </div>
-
-
-                {/*------Downloads History------ */}
-                <div className='grid grid-cols-4 items-center justify-between gap-6 bg-gray-50 p-4 rounded-xl'>
-                        <div className='flex items-center justify-start gap-2'>
-                            <img className='w-14' src={image11} alt="" />
-                            <p className='text-sm font-bold text-gray-700'>The Intersection of Chaos and Harmony</p>
-                        </div>
-                        <div>
-                            <p className='text-sm font-normal text-gray-400'>by @eric-clark</p>
-                        </div>
-                        <div>
-                            <p className='text-sm font-normal text-gray-400'>22 Jan 2025</p>
-                        </div>
-                        <div className='flex items-center gap-2  justify-end'>
-                            <PiFileArrowDown className='text-gray-700 bg-gray-100 text-4xl p-2 rounded-xl'></PiFileArrowDown>
-                            <RiDeleteBinLine className='text-gray-700 bg-gray-100 text-4xl p-2 rounded-xl'></RiDeleteBinLine>
-                        </div>
-                </div>
-           </div>
+      <div className='bg-white p-6 rounded-xl'>
+        <div className='flex items-center justify-between mb-6'>
+          <h1 className='text-2xl font-bold text-gray-700'>All Downloads</h1>
         </div>
+        <div className='flex flex-col gap-5'>
+          <div className='grid grid-cols-4 items-center justify-between gap-6'>
+            <div className='flex items-center justify-start gap-1'>File Name</div>
+            <div className='flex items-center justify-start gap-1'>Uploader</div>
+            <div className='flex items-center justify-start gap-1'>Date</div>
+          </div>
+          {loading ? <div>Loading...</div> : error ? <div className='text-red-500'>{error}</div> : downloads.length === 0 ? <div>No downloads yet.</div> : downloads.map((item, idx) => (
+            <div key={item._id || idx} className='grid grid-cols-4 items-center justify-between gap-6 bg-gray-50 p-4 rounded-xl'>
+              <div className='flex items-center justify-start gap-2'>
+                <img className='w-14' src={item.content?.thumbnail && item.content.thumbnail.startsWith('/uploads/') ? BACKEND_URL + item.content.thumbnail : item.content?.thumbnail} alt="" />
+                <p className='text-sm font-bold text-gray-700'>{item.content?.title || 'Untitled'}</p>
+              </div>
+              <div>
+                <p className='text-sm font-normal text-gray-400'>by @{item.content?.uploader?.name || 'unknown'}</p>
+              </div>
+              <div>
+                <p className='text-sm font-normal text-gray-400'>{item.date ? new Date(item.date).toLocaleDateString() : ''}</p>
+              </div>
+              <div className='flex items-center gap-2  justify-end'>
+                <a href={item.content?.image && item.content.image.startsWith('/uploads/') ? BACKEND_URL + item.content.image : item.content?.image} download target="_blank" rel="noopener noreferrer">
+                  Download
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default DownloadHistory
+export default DownloadHistory;

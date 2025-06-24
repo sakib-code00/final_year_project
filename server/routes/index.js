@@ -6,6 +6,7 @@ import usersRoutes from './users.js';
 import contentsRoutes from './contents.js';
 import settingsRoutes from './settings.js';
 import wishlistRoutes from './wishlist.js';
+import downloadsRoutes from './downloads.js';
 
 const router = Router();
 
@@ -16,6 +17,7 @@ router.use('/users', usersRoutes);
 router.use('/contents', contentsRoutes);
 router.use('/settings', settingsRoutes);
 router.use('/wishlist', wishlistRoutes);
+router.use('/downloads', downloadsRoutes);
 
 // Example route
 router.get('/', (req, res) => {
