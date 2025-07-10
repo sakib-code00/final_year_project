@@ -79,29 +79,7 @@ const Gallery = () => {
   };
 
   const handleDownload = async (content) => {
-    setDownloadFeedback(f => ({ ...f, [content._id]: 'downloading' }));
-    try {
-      const token = localStorage.getItem('token');
-      // Register download in backend
-      const res = await fetch(`/api/downloads/${content._id}`, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      if (!res.ok) throw new Error('Failed to register download');
-      // Download the image in a new tab
-      const imageUrl = content.thumbnail && content.thumbnail.startsWith('/uploads/') ? BACKEND_URL + content.thumbnail : content.thumbnail;
-      const a = document.createElement('a');
-      a.href = imageUrl;
-      a.download = content.title || 'image';
-      a.target = '_blank';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      setDownloadFeedback(f => ({ ...f, [content._id]: 'done' }));
-    } catch {
-      setDownloadFeedback(f => ({ ...f, [content._id]: 'error' }));
-    }
-    setTimeout(() => setDownloadFeedback(f => ({ ...f, [content._id]: undefined })), 1200);
+    window.open(content, '_blank', 'noopener,noreferrer,width=800,height=600');
   };
 
   if (loading) return <div>Loading...</div>;
@@ -134,9 +112,11 @@ const Gallery = () => {
                 </div>
                 <button
                   className='cursor-pointer'
-                  onClick={() => handleDownload(content)}
+                  onClick={() => handleDownload(content.thumbnail && content.thumbnail.startsWith('/uploads/') ? BACKEND_URL + content.thumbnail : content.thumbnail)}
                   disabled={downloadFeedback[content._id] === 'downloading'}
                   style={{ background: 'none', border: 'none', padding: 0 }}
+                  download={content.title || 'image'}
+                  target='_blank'
                 >
                   <GoDownload className="text-5xl text-white bg-slate-400 p-2 rounded-full" />
                   {downloadFeedback[content._id] === 'downloading' && <span>Downloading...</span>}

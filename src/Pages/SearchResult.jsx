@@ -48,24 +48,7 @@ const SearchResult = () => {
     }, [query]);
 
     const handleDownload = async (content) => {
-        setDownloadFeedback(f => ({ ...f, [content._id]: 'downloading' }));
-        try {
-            const token = localStorage.getItem('token');
-            await fetch(`/api/users/download/${content._id}`, {
-                method: 'POST',
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            const link = document.createElement('a');
-            link.href = content.image && content.image.startsWith('/uploads/') ? BACKEND_URL + content.image : content.image;
-            link.download = content.title || 'image';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            setDownloadFeedback(f => ({ ...f, [content._id]: 'done' }));
-        } catch {
-            setDownloadFeedback(f => ({ ...f, [content._id]: 'error' }));
-        }
-        setTimeout(() => setDownloadFeedback(f => ({ ...f, [content._id]: undefined })), 1200);
+      window.open(content, '_blank', 'noopener,noreferrer,width=800,height=600');;
     };
 
     const handleAddToWishlist = async (contentId) => {
@@ -144,7 +127,7 @@ const SearchResult = () => {
                                     <img src={content.uploader?.profilePic ? (content.uploader.profilePic.startsWith('/uploads/') ? BACKEND_URL + content.uploader.profilePic : content.uploader.profilePic) : '/default-user.png'} alt="" className='w-8 h-8 rounded-full object-cover' />
                                     <p className='text-white text-xl font-medium'>{content.uploader?.name || 'Unknown'}</p>
                                 </div>
-                                <button onClick={() => handleDownload(content)} disabled={downloadFeedback[content._id] === 'downloading'}>
+                                <button onClick={() => handleDownload(content.thumbnail && content.thumbnail.startsWith('/uploads/') ? BACKEND_URL + content.thumbnail : content.thumbnail)} disabled={downloadFeedback[content._id] === 'downloading'}>
                                     <GoDownload className='text-5xl text-white bg-slate-400 p-2 rounded-full' />
                                     {downloadFeedback[content._id] === 'downloading' && <span>Downloading...</span>}
                                     {downloadFeedback[content._id] === 'done' && <span>Done!</span>}
