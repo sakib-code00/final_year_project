@@ -2,6 +2,7 @@ import express from 'express';
 import User from '../models/User.js';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
+import bcrypt from 'bcryptjs';
 
 const router = express.Router();
 
@@ -47,7 +48,8 @@ router.post('/reset-password/:token', async (req, res) => {
     resetPasswordExpires: { $gt: Date.now() }
   });
   if (!user) return res.status(400).json({ message: 'Invalid or expired token' });
-  user.password = password;
+  const hashedPassword = await bcrypt.hash(password, 10);
+  user.password = hashedPassword;
   user.resetPasswordToken = undefined;
   user.resetPasswordExpires = undefined;
   await user.save();
