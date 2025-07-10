@@ -12,6 +12,8 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ['user', 'admin'], default: 'user' },
   wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Content' }],
   downloadHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Content' }],
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date },
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

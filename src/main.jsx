@@ -32,6 +32,8 @@ import RequireAdmin from './utils/RequireAdmin.jsx';
 import RequireAuth from './utils/RequireAuth.jsx';
 import RequireGuest from './utils/RequireGuest.jsx';
 import { SettingsProvider } from './contexts/SettingsContext.jsx';
+import ForgotPassword from './Pages/ForgotPassword.jsx';
+import ResetPassword from './Pages/ResetPassword.jsx';
 
 const router = createBrowserRouter([
   {
@@ -77,7 +79,9 @@ const router = createBrowserRouter([
             <SignUp />
           </RequireGuest>
         ),
-      }
+      },
+      { path: '/reset-password', element: <ForgotPassword /> },
+      { path: '/reset-password/:token', element: <ResetPassword /> },
     ],
 
   },

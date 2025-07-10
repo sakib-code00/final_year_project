@@ -7,10 +7,12 @@ import contentsRoutes from './contents.js';
 import settingsRoutes from './settings.js';
 import wishlistRoutes from './wishlist.js';
 import downloadsRoutes from './downloads.js';
+import forgotPasswordRoutes from './forgotPassword.js';
 
 const router = Router();
 
 router.use('/auth', authRoutes);
+router.use('/auth', forgotPasswordRoutes);
 router.use('/profile', profileRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/users', usersRoutes);

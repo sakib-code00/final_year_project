@@ -51,6 +51,7 @@ const Login = () => {
                     {error && <p className='text-red-500 mt-2'>{error}</p>}
                     <button type="submit" className='text-center w-full bg-blue-400 text-white text-lg font-semibold rounded-2xl py-3 mt-4'>SignIn</button>
                 </form>
+                <p>Forgot your password? <Link to="/reset-password" className='text-blue-400 font-semibold'>Reset it</Link></p>
                 <p> Don't have an account? <Link to="/signup" className='text-blue-400 font-semibold'>Sign Up</Link></p>
             </div>
         </div>
